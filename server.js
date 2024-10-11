@@ -11,7 +11,13 @@ app.use(express.urlencoded({ extended: true }))
 
 const upload = multer({ dest: "uploads" })
 
-mongoose.connect(process.env.DATABASE_URL)
+mongoose.connect(process.env.DATABASE_URL
+, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  tls: true, // Ensure TLS is used
+  tlsAllowInvalidCertificates: false // Reject invalid certificates in production
+});
 
 app.set("view engine", "ejs")
 
