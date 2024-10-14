@@ -3,6 +3,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.21/vanta.net.min.js"></script>
     <style>
         body {
           font-family: 'Arial', sans-serif;
@@ -14,24 +16,41 @@
           margin: 0;
           padding: 0;
         }
+        #bg {
+          padding-left:12rem;
+          z-index:-1;
+
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+}
       
-        .form-container {
-          background: rgba(255, 255, 255, 0.9);
-          padding: 2rem;
-          border-radius: 10px;
-  box-shadow: 0 8px 20px rgba(10, 10, 10, 0.2); /* Increased shadow */
-          max-width: 500px;
-          width: 100%;
-          margin: auto;
-        }
+.form-container {
+  background: rgba(169, 207, 245, 0.2); /* Light transparency to see blur through it */
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Slightly darker shadow to match the dark background */
+  max-width: 500px;
+  width: 100%;
+  margin: auto;
+  backdrop-filter: blur(3px); /* Stronger blur for better contrast with dark background */
+  -webkit-backdrop-filter: blur(15px); /* Safari support */
+  color: #ffffff; /* Ensures the text is readable on dark blue background */
+   /* Soft border to define the form edges */
+}
+
       
         .form-heading {
   text-align: center;
   font-size: 1.5rem;
+  color:white;
   margin-bottom: 1.5rem;
-  color: #333; /* Optional: Customize the color */
+   /* Optional: Customize the color */
 }
         .form-container form {
+          
           display: grid;
           gap: 1rem;
           grid-template-columns: auto 1fr;
@@ -39,13 +58,13 @@
       
         .form-container label {
           font-weight: bold;
-          color: #333;
+          color: #fbfafa;
         }
       
         .form-container input[type="file"],
         .form-container input[type="password"] {
           padding: 0.5rem;
-          border: 1px solid #ccc;
+          border: 2px solid #00acc1;
           border-radius: 5px;
           font-size: 1rem;
           width: 100%;
@@ -54,7 +73,7 @@
         .form-container button {
           grid-column: span 2;
           padding: 0.75rem;
-          background-color: #0a7bac;
+          background-color: #0da4e4;
           color: white;
           border: none;
           border-radius: 5px;
@@ -64,21 +83,21 @@
         }
       
         .form-container button:hover {
-          background-color: #24abf4;
-          color: #333;
+          background-color: #0f7ab4;
+          color: white;
         }
       
         .file-link {
           margin-bottom: 1rem;
           padding: 1rem;
-          background-color: #e0f7fa;
-          border: 1px solid #00acc1;
+          
+          border: 2px solid #00acc1;
           border-radius: 5px;
           text-align: center;
         }
       
         .file-link a {
-          color: #00acc1;
+          color: #56edf0;
           text-decoration: none;
           font-weight: bold;
         }
@@ -89,8 +108,25 @@
       </style>
   </head>
   <body>
-    
+    <div id="bg">
+      </div>
+      <script>
+        // Initialize the VANTA.NET effect
+        VANTA.NET({
+          el: "#bg",
+          mouseControls: true,
+          touchControls: true,
+          gyroControls: false,
+          minHeight: 400.00,
+          minWidth: 400.00,
+          scale: 1.00,
+          scaleMobile: 1.00,
+          color: 0x7accfe,
+          backgroundColor: 0x010f18
+        });
+      </script>
     <div class="form-container">
+     
       <h2 class="form-heading">Upload Your File Here</h2>
         <% if (locals.fileLink != null) { %>
           <div class="file-link">
@@ -107,5 +143,6 @@
           <button type="submit">Share</button>
         </form>
       </div>
+      
   </body>
   </html>

@@ -1,11 +1,11 @@
+const express = require("express")
+const app = express()
+
 require("dotenv").config()
 const multer = require("multer")
 const mongoose = require("mongoose")
 const bcrypt = require("bcrypt")
 const File = require("./models/File")
-
-const express = require("express")
-const app = express()
 app.use(express.urlencoded({ extended: true }))
 
 
@@ -20,8 +20,6 @@ app.get("/", (req, res) => {
 })
 
 app.post("/upload", upload.single("file"), async (req, res) => {
-
-
   const fileData = {
     path: req.file.path,
     originalName: req.file.originalname,
