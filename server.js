@@ -8,6 +8,7 @@ const bcrypt = require("bcrypt")
 const File = require("./models/File")
 app.use(express.urlencoded({ extended: true }))
 
+app.use(express.json());
 
 const upload = multer({ dest: "uploads" })
 
@@ -40,13 +41,12 @@ async function handleDownload(req, res) {
 
   if (file.password != null) {
     if (req.body.password == null) {
-      res.render("password")
-      return
+      res.render("password" , { fileId: req.params.id, error: false });
+    
     }
 
     if (!(await bcrypt.compare(req.body.password, file.password))) {
-      res.render("password", { error: true })
-      return
+      res.render("password", { fileId: req.params.id, error: true })
     }
   }
 
